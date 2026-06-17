@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentTara Admin Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <meta name="description" content="RentTara Admin Dashboard — Manage vehicle rentals in Batangas">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="bootstrapDashboard()">
+  <div class="app-layout">
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+          </div>
+          <div>
+            <h2>RentTara</h2>
+            <span>Admin Panel</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Overview</div>
+          <a href="#" class="nav-link active" data-page="dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+            Dashboard
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Approvals</div>
+          <a href="#" class="nav-link" data-page="verifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            ID Verification
+            <span class="nav-badge" id="badge-verifications">0</span>
+          </a>
+          <a href="#" class="nav-link" data-page="vehicles">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+            Vehicle Approval
+            <span class="nav-badge" id="badge-vehicles">0</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Operations</div>
+          <a href="#" class="nav-link" data-page="bookings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Bookings & Escrow
+          </a>
+          <a href="#" class="nav-link" data-page="users">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Users
+          </a>
+          <a href="#" class="nav-link" data-page="subscriptions">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Subscriptions
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">System</div>
+          <a href="#" class="nav-link" data-page="reports">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            Reports
+          </a>
+          <a href="#" class="nav-link" data-page="audit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Audit Log
+          </a>
+          <a href="#" class="nav-link" data-page="settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Settings
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sync-pill" id="sync-status">
+          <span class="sync-dot"></span>
+          <span id="sync-text">Local storage · Firebase ready</span>
+        </div>
+        <button class="btn-logout" onclick="logout()">Sign out</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div>
+            <div class="page-eyebrow">RentTara · Batangas</div>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <span class="firebase-status demo" id="firebase-status" title="Connection mode">Demo Mode</span>
+          <div class="notif-wrap">
+            <button class="notif-btn" id="notif-btn" aria-label="Notifications" onclick="toggleNotifications(event)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span class="notif-dot" id="notif-count">0</span>
+            </button>
+            <div class="notif-panel" id="notif-panel">
+              <div class="notif-panel-header">
+                <strong>Notifications</strong>
+                <button type="button" onclick="markAllNotificationsRead()">Mark all read</button>
+              </div>
+              <div class="notif-panel-body" id="notif-list"></div>
+            </div>
+          </div>
+          <div class="topbar-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="global-search" placeholder="Search current page..." autocomplete="off">
+          </div>
+          <div class="admin-profile">
+            <div class="admin-avatar" id="admin-avatar">A</div>
+            <div class="admin-profile-info">
+              <span id="admin-name">Administrator</span>
+              <small id="admin-email">Platform Admin</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="page-content">
+
+        <!-- DASHBOARD -->
+        <section id="page-dashboard" class="page-section active">
+          <div class="welcome-strip">
+            <div>
+              <h2>Good morning, Admin</h2>
+              <p>Here's what's happening across the platform today.</p>
+            </div>
+            <div class="welcome-date" id="current-date"></div>
+          </div>
+
+          <div class="connection-banner">
+            <div class="connection-banner-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <div>
+              <strong>Admin ↔ Mobile sync active.</strong> Lahat ng approval at monitoring dito ay direktang naka-link sa mobile app. Kapag na-approve mo ang user o vehicle, mag-u-update ang status sa app — Account Verification, Submission Status, at Notifications.
+            </div>
+          </div>
+
+          <div class="stats-grid" id="stats-grid"></div>
+
+          <div class="quick-actions" id="quick-actions">
+            <button class="quick-action-btn" onclick="navigateTo('verifications')">
+              <span class="quick-action-icon" id="qa-verifications">0</span>
+              <span>Review IDs</span>
+            </button>
+            <button class="quick-action-btn" onclick="navigateTo('vehicles')">
+              <span class="quick-action-icon" id="qa-vehicles">0</span>
+              <span>Approve Vehicles</span>
+            </button>
+            <button class="quick-action-btn" onclick="navigateTo('bookings'); setBookingFilter('overdue')">
+              <span class="quick-action-icon alert" id="qa-overdue">0</span>
+              <span>Check Overdue</span>
+            </button>
+            <button class="quick-action-btn" onclick="navigateTo('reports')">
+              <span class="quick-action-icon info">↗</span>
+              <span>View Reports</span>
+            </button>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <h3>Recent Activity</h3>
+                <span class="card-meta">Live feed</span>
+              </div>
+              <div class="card-body" id="activity-feed"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3>Priority Actions</h3>
+                <span class="card-meta">Admin responsibilities</span>
+              </div>
+              <div class="card-body priority-list">
+                <div class="priority-item">
+                  <div class="priority-num">1</div>
+                  <div><strong>Approve / Reject IDs</strong><span>2 valid govt IDs bago ma-activate ang account</span></div>
+                </div>
+                <div class="priority-item">
+                  <div class="priority-num">2</div>
+                  <div><strong>Approve / Reject Vehicles</strong><span>OR/CR at vehicle details bago ma-list sa app</span></div>
+                </div>
+                <div class="priority-item">
+                  <div class="priority-num">3</div>
+                  <div><strong>Monitor Escrow</strong><span>Reservation fee na "Held" hanggang completed</span></div>
+                </div>
+                <div class="priority-item">
+                  <div class="priority-num">4</div>
+                  <div><strong>Track Overdue Rentals</strong><span>Flag rentals na lumampas sa return date</span></div>
+                </div>
+                <div class="priority-item">
+                  <div class="priority-num">5</div>
+                  <div><strong>Manage Subscriptions</strong><span>Vehicle listing limits — free plan: 2 vehicles</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ID VERIFICATION -->
+        <section id="page-verifications" class="page-section">
+          <div class="connection-banner">
+            <div class="connection-banner-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+            <div><strong>Mobile link:</strong> Kapag nag-sign up ang user at nag-upload ng 2 IDs, lalabas dito. Pag na-approve → Renter/Owner Dashboard unlocked. Pag rejected → notification sa app.</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Pending ID Verifications <span class="filter-count" id="count-verifications"></span></h3>
+              <span class="card-meta">Verified Identity Registration</span>
+            </div>
+            <div class="filters" id="filters-verifications">
+              <div class="filter-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="search" data-filter="search" placeholder="Search name or email...">
+              </div>
+              <select data-filter="role"><option value="">All Roles</option><option value="renter">Renter</option><option value="owner">Owner</option></select>
+              <select data-filter="status"><option value="">All Status</option><option value="pending">Pending</option><option value="approved">Approved</option><option value="rejected">Rejected</option></select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>ID</th><th>User</th><th>Role</th><th>IDs Submitted</th><th>Date</th><th>Status</th><th>Action</th></tr>
+                </thead>
+                <tbody id="verifications-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VEHICLE APPROVAL -->
+        <section id="page-vehicles" class="page-section">
+          <div class="connection-banner">
+            <div class="connection-banner-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+            </div>
+            <div><strong>Mobile link:</strong> Pag nag-submit ang owner ng vehicle, pending muna. Pag na-approve dito → visible sa browse/search ng renters. Owner makikita ang status sa Submission Status Page.</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Vehicle Submission Queue <span class="filter-count" id="count-vehicles"></span></h3>
+              <span class="card-meta">Vehicle Listing & Management</span>
+            </div>
+            <div class="filters" id="filters-vehicles">
+              <div class="filter-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="search" data-filter="search" placeholder="Search vehicle or owner...">
+              </div>
+              <select data-filter="status"><option value="">All Status</option><option value="pending">Pending</option><option value="approved">Approved</option><option value="rejected">Rejected</option></select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>ID</th><th>Owner</th><th>Vehicle</th><th>Type</th><th>Price</th><th>Submitted</th><th>Status</th><th>Action</th></tr>
+                </thead>
+                <tbody id="vehicles-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- BOOKINGS -->
+        <section id="page-bookings" class="page-section">
+          <div class="connection-banner">
+            <div class="connection-banner-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div><strong>Mobile link:</strong> Lahat ng booking (request → accept → payment held → completed) ay naka-monitor dito. Admin makikita ang escrow status at overdue rentals.</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Bookings & Escrow Monitor <span class="filter-count" id="count-bookings"></span></h3>
+              <span class="card-meta">Escrow Simulation + Booking History</span>
+            </div>
+            <div class="filters" id="filters-bookings">
+              <div class="filter-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="search" data-filter="search" placeholder="Search booking, renter, vehicle...">
+              </div>
+              <select data-filter="bookingStatus"><option value="">All Status</option><option value="active">Active</option><option value="overdue">Overdue</option><option value="completed">Completed</option></select>
+              <select data-filter="paymentStatus"><option value="">All Payments</option><option value="held">Held</option><option value="released">Released</option></select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Booking</th><th>Renter</th><th>Owner</th><th>Vehicle</th><th>Dates</th><th>Escrow</th><th>Status</th><th>Action</th></tr>
+                </thead>
+                <tbody id="bookings-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- USERS -->
+        <section id="page-users" class="page-section">
+          <div class="card">
+            <div class="card-header">
+              <h3>All Users <span class="filter-count" id="count-users"></span></h3>
+              <span class="card-meta">Renters & Vehicle Owners</span>
+            </div>
+            <div class="filters" id="filters-users">
+              <div class="filter-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="search" data-filter="search" placeholder="Search user...">
+              </div>
+              <select data-filter="role"><option value="">All Roles</option><option value="renter">Renter</option><option value="owner">Owner</option></select>
+              <select data-filter="status"><option value="">All Status</option><option value="active">Active</option><option value="pending">Pending</option><option value="suspended">Suspended</option></select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Verified</th><th>Status</th><th>Joined</th><th>Action</th></tr>
+                </thead>
+                <tbody id="users-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUBSCRIPTIONS -->
+        <section id="page-subscriptions" class="page-section">
+          <div class="connection-banner">
+            <div class="connection-banner-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div><strong>Mobile link:</strong> Kapag nag-subscribe ang owner sa app, tataas ang vehicle listing limit. Free plan = 2 vehicles.</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Owner Subscriptions <span class="filter-count" id="count-subscriptions"></span></h3>
+              <span class="card-meta">Subscription Plans</span>
+            </div>
+            <div class="filters" id="filters-subscriptions">
+              <div class="filter-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="search" data-filter="search" placeholder="Search owner or plan...">
+              </div>
+              <select data-filter="status"><option value="">All Status</option><option value="active">Active</option><option value="pending">Pending</option></select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>ID</th><th>Owner</th><th>Plan</th><th>Price</th><th>Period</th><th>Status</th></tr>
+                </thead>
+                <tbody id="subscriptions-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- REPORTS -->
+        <section id="page-reports" class="page-section">
+          <div class="reports-toolbar">
+            <p>Platform analytics for thesis reporting and admin monitoring.</p>
+            <button class="btn btn-coral btn-sm" onclick="exportReports()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export Report (Print)
+            </button>
+          </div>
+          <div class="stats-grid" id="reports-stats">
+            <div class="stat-card default">
+              <div class="stat-top"><div class="stat-icon default"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div></div>
+              <div class="label">Total Bookings</div><div class="value">24</div><div class="sub">This month</div>
+            </div>
+            <div class="stat-card success">
+              <div class="stat-top"><div class="stat-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+              <div class="label">Completed Rentals</div><div class="value">18</div><div class="sub">75% completion rate</div>
+            </div>
+            <div class="stat-card danger">
+              <div class="stat-top"><div class="stat-icon danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div></div>
+              <div class="label">Disputes / Flags</div><div class="value">1</div><div class="sub">Needs review</div>
+            </div>
+            <div class="stat-card info">
+              <div class="stat-top"><div class="stat-icon info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div></div>
+              <div class="label">Avg. Rating</div><div class="value">4.6</div><div class="sub">Platform-wide</div>
+            </div>
+          </div>
+
+          <div class="charts-grid">
+            <div class="card chart-card">
+              <div class="card-header"><h3>Monthly Bookings</h3><span class="card-meta">Jan – Jun 2026</span></div>
+              <div class="chart-container"><canvas id="chart-bookings"></canvas></div>
+            </div>
+            <div class="card chart-card">
+              <div class="card-header"><h3>Vehicle Types Rented</h3><span class="card-meta">Most popular</span></div>
+              <div class="chart-container chart-container-sm"><canvas id="chart-vehicles"></canvas></div>
+            </div>
+            <div class="card chart-card chart-card-wide">
+              <div class="card-header"><h3>User Growth</h3><span class="card-meta">Renters vs Owners</span></div>
+              <div class="chart-container"><canvas id="chart-users"></canvas></div>
+            </div>
+            <div class="card chart-card">
+              <div class="card-header"><h3>Subscription Revenue</h3><span class="card-meta">Monthly (₱)</span></div>
+              <div class="chart-container"><canvas id="chart-revenue"></canvas></div>
+            </div>
+            <div class="card chart-card chart-card-wide">
+              <div class="card-header"><h3>Bookings by Municipality</h3><span class="card-meta">Batangas Province</span></div>
+              <div class="chart-container"><canvas id="chart-municipalities"></canvas></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- AUDIT LOG -->
+        <section id="page-audit" class="page-section">
+          <div class="connection-banner">
+            <div class="connection-banner-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div><strong>Accountability trail:</strong> Lahat ng admin actions (approve, reject, suspend) ay naka-log dito. Kapag naka-Firebase na, ise-save din sa <code>admin_logs</code> collection.</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Admin Activity Log <span class="filter-count" id="count-audit"></span></h3>
+              <button class="btn btn-ghost btn-sm" onclick="clearAuditLog()">Clear log</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Log ID</th><th>Action</th><th>Target</th><th>Details</th><th>Admin</th><th>Timestamp</th></tr>
+                </thead>
+                <tbody id="audit-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="page-settings" class="page-section">
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header"><h3>Platform Settings</h3></div>
+              <div class="card-body-padded">
+                <div class="settings-field">
+                  <label for="setting-vehicle-limit">Free Vehicle Listing Limit</label>
+                  <input type="number" id="setting-vehicle-limit" min="1" max="10">
+                </div>
+                <div class="settings-field">
+                  <label for="setting-reservation-fee">Default Reservation Fee (%)</label>
+                  <input type="number" id="setting-reservation-fee" min="1" max="100">
+                </div>
+                <div class="settings-field">
+                  <label for="setting-penalty">Overdue Penalty (₱/hour)</label>
+                  <input type="number" id="setting-penalty" min="0">
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="savePlatformSettings()">Save Settings</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Terms & Conditions</h3></div>
+              <div class="card-body-padded">
+                <p style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:16px;">Platform policies shown sa mobile app.</p>
+                <div class="settings-field">
+                  <label for="setting-terms">Terms Content</label>
+                  <textarea rows="8" id="setting-terms" placeholder="Booking policies, cancellation, data privacy..."></textarea>
+                </div>
+                <button class="btn btn-coral btn-sm" onclick="savePlatformTerms()">Update Terms</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Data & Firebase</h3></div>
+              <div class="card-body-padded">
+                <p style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:16px;">Reset demo data or seed Firestore for mobile app sync.</p>
+                <button class="btn btn-ghost btn-sm" onclick="resetDemoData()" style="margin-right:8px;">Reset Demo Data</button>
+                <button class="btn btn-ghost btn-sm" onclick="seedFirebaseData()" style="margin-right:8px;">Seed Firestore</button>
+                <button class="btn btn-ghost btn-sm" onclick="showToast('Edit js/firebase-config.js with your Firebase keys, then deploy firestore.rules')">Firebase Setup Guide</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <nav class="bottom-nav" id="bottom-nav" aria-label="Mobile navigation">
+    <a href="#" class="bottom-nav-item active" data-page="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      Home
+    </a>
+    <a href="#" class="bottom-nav-item" data-page="verifications">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      IDs
+      <span class="bottom-badge" id="bottom-badge-verifications">0</span>
+    </a>
+    <a href="#" class="bottom-nav-item" data-page="vehicles">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+      Vehicles
+      <span class="bottom-badge" id="bottom-badge-vehicles">0</span>
+    </a>
+    <a href="#" class="bottom-nav-item" data-page="bookings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Bookings
+    </a>
+    <button class="bottom-nav-item" id="bottom-nav-menu" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+      More
+    </button>
+  </nav>
+
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Details</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer" id="modal-footer"></div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
